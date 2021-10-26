@@ -1,0 +1,18 @@
+.content {
+  padding: 0px;
+}
+.root {
+  min-height: ~'calc(100vh - 86px)';
+}
+.extraRight {
+  line-height: 40px;
+  flex-shrink: 0;
+}
+.clear::after {
+  content: '';
+  display: block;
+  clear: both;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}

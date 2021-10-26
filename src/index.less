@@ -1,0 +1,26 @@
+html,
+body,
+:global(#root) {
+  height: 100%;
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+  letter-spacing: 1px;
+  line-height: 1.5;
+}
+// 除了zarm外,添加一些额外的css variable
+:root {
+  --color-text-title: rgba(0, 0, 0, 0.9);
+  --color-text-second: rgba(0, 0, 0, 0.6);
+}
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// 暗黑主题,要替换的css
+body[data-theme='dark'] {
+  background-color: #000;
+  --color-text-title: rgba(255, 255, 255, 0.9);
+  --color-text-second: rgba(255, 255, 255, 0.6);
+}
