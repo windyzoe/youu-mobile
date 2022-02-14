@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useMount } from 'ahooks';
 import { Carousel } from 'zarm';
-import { login as loginReq, validateToken } from '@/services/user';
 
 const ITEMS = [
   'https://static.zhongan.com/website/health/zarm/images/banners/1.png',
@@ -9,19 +8,14 @@ const ITEMS = [
   'https://static.zhongan.com/website/health/zarm/images/banners/3.png',
 ];
 
-const contentRender = () => {
-  return ITEMS.map((item, i) => {
-    return (
-      <div className="carousel__item__pic" key={+i}>
-        <img src={item} alt="" draggable={false} />
-      </div>
-    );
-  });
-};
+const contentRender = () =>
+  ITEMS.map((item, i) => (
+    <div className="carousel__item__pic" key={+i}>
+      <img src={item} alt="" draggable={false} />
+    </div>
+  ));
 
-const Login = (props) => {
-  const { userLogin = {} } = props;
-  const { status, type: loginType } = userLogin;
+const Login = () => {
   const [submitting, setSubmitting] = useState(false);
 
   useMount(() => {
@@ -33,7 +27,7 @@ const Login = (props) => {
     <Carousel
       autoPlay
       loop
-      onChange={(index) => {
+      onChange={index => {
         console.log(`onChange: ${index}`);
       }}
     >

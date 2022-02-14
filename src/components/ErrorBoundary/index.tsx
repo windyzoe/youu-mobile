@@ -1,7 +1,7 @@
 import React from 'react';
 import errorImg from '@/assets/statusImg/渲染失败.svg';
 
-export default class ErrorBoundary extends React.Component<{}, { hasError: boolean; errorInfo: string }> {
+export default class ErrorBoundary extends React.Component {
   state = { hasError: false, errorInfo: '' };
 
   // 更新 state 使下一次渲染能够显示降级后的 UI
@@ -30,13 +30,11 @@ export default class ErrorBoundary extends React.Component<{}, { hasError: boole
  * @param Component 业务组件
  */
 export function withErrorBoundary(Component: React.ComponentClass) {
-  const Wrapped = (props: any) => {
-    return (
-      <ErrorBoundary>
-        <Component {...props} />
-      </ErrorBoundary>
-    );
-  };
+  const Wrapped = (props: any) => (
+    <ErrorBoundary>
+      <Component {...props} />
+    </ErrorBoundary>
+  );
 
   // DevTools 显示的组件名
   const name = Component.displayName || Component.name || 'Unknown';

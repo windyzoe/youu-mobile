@@ -1,5 +1,3 @@
-/// <reference types="react-scripts" />
-// cra ts 全局的适配都在这里
 declare module '*.png';
 declare module '*.gif';
 declare module '*.jpg';

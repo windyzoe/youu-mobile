@@ -1,45 +1,29 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { useState } from 'react';
+import { BrowserRouter, useRoutes } from 'react-router-dom';
 import { ConfigProvider } from 'zarm';
 import { useMount } from 'ahooks';
 import { Theme } from 'zarm/types/config-provider/PropsType';
 import { initI18n, getLocale } from '@/i18n';
 import StoreContext, { useGlobalData } from '@/components/StoreContext';
-import Authorized from '@/utils/Authorized';
-import { routerConfig } from './common/router';
+import { getRouterData } from './common/router';
 import 'zarm/dist/zarm.css';
 
+const RouterConfig = () => {
+  return useRoutes(getRouterData());
+};
 
-const { AuthorizedRoute } = Authorized;
-
-const RouterConfig: React.FC<{}> = () => {
+const Root = () => {
   const [isReady, setReady] = useState(false);
   const { state } = useGlobalData();
   useMount(() => {
     initI18n().then(() => setReady(true));
   });
-
-  if (!isReady) return null;
-  const routerData = routerConfig();
-  const UserLogin = routerData['/user/login'].component;
-  const BasicLayout = routerData['/'].component;
   return (
     <ConfigProvider locale={getLocale()} theme={state.theme as Theme}>
-      <Router>
-        <Switch>
-          <Route path="/user/login" component={UserLogin} />
-          <Route path="/" render={prop => <BasicLayout {...prop} />} />
-        </Switch>
-      </Router>
+      <StoreContext>
+        <BrowserRouter>{isReady ? <RouterConfig /> : <div />}</BrowserRouter>
+      </StoreContext>
     </ConfigProvider>
-  );
-};
-
-const Root = () => {
-  return (
-    <StoreContext>
-      <RouterConfig />
-    </StoreContext>
   );
 };
 

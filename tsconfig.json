@@ -1,41 +1,20 @@
 {
   "compilerOptions": {
+    "allowJs": true,
     "target": "esnext",
     "module": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "allowJs": true,
+    "moduleResolution": "Node",
+    "importHelpers": true,
     "jsx": "react-jsx",
-    "isolatedModules": true,
-    "strict": true,
-    "moduleResolution": "node",
     "esModuleInterop": true,
-    "resolveJsonModule": true,
+    "sourceMap": true,
     "baseUrl": "./",
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
+    "strict": true,
     "noEmit": true,
-    "noFallthroughCasesInSwitch": true
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "allowSyntheticDefaultImports": true
   },
-  "extends": "./tsconfig.extend.json",
-  "exclude": [
-    "node_modules",
-    "dist",
-    "build"
-  ],
-  "include": [
-    "src",
-    "mock",
-    "*.ts",
-    "*.js"
-  ]
+  "include": ["src"]
 }

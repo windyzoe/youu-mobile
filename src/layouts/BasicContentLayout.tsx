@@ -11,7 +11,7 @@ const REFRESH_STATE = {
   failure: 5, // 加载失败
 };
 
-const BasicContentLayout: React.FC<{ loading?: boolean }> = ({ children, loading }) => {
+const BasicContentLayout: React.FC<{ loading?: boolean }> = ({ children, loading = false }) => {
   const pullRef = useRef();
   const [refreshing, setRefreshing] = useState(REFRESH_STATE.normal);
   const refreshData = () => {

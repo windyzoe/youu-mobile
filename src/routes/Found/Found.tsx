@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Input, Cell, Button, Message, Icon } from 'zarm';
 
-const Found: React.FC<{}> = () => {
+const Found: React.FC = () => {
   const {
     control,
     handleSubmit,
@@ -12,6 +12,7 @@ const Found: React.FC<{}> = () => {
   });
 
   const onSubmit = (data: any) => console.log(data);
+  console.log('%c 🚀 xuzh found', 'color: red; font-size: 18px;', 1);
 
   return (
     <div style={{ margin: '20px' }}>

@@ -93,13 +93,13 @@ function serviceErrorHandle({ data, response }) {
 // 对UMI request进行扩展   https://github.com/umijs/umi-request
 const umiRequest = extend({
   prefix: '/api',
-  timeout: 1000, //超时设置
+  timeout: 1000, // 超时设置
   credentials: 'omit',
-  requestType: 'json', //json form 可选
-  responseType: 'json', //text, blob, arrayBuffer, formData 可选
+  requestType: 'json', // json form 可选
+  responseType: 'json', // text, blob, arrayBuffer, formData 可选
   getResponse: true,
   // headers: { xxxToken: 'xxxxxxxxx' }, //token认证
-  errorHandler: httpStatusErrorHandle, //http错误处理
+  errorHandler: httpStatusErrorHandle, // http错误处理
 });
 
 // 维护一个全局请求队列

@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from 'react';
-import { useLockFn, usePersistFn } from 'ahooks';
+import { useLockFn, useMemoizedFn } from 'ahooks';
 
 const overflowScrollReg = /scroll|auto/i;
 
 function isElement(node: HTMLElement) {
   const ELEMENT_NODE_TYPE = 1;
   return node.tagName !== 'HTML' && node.tagName !== 'BODY' && node.nodeType === ELEMENT_NODE_TYPE;
-} 
+}
 // https://github.com/youzan/vant/issues/3823
 function getScrollParent(el: HTMLDivElement, root = window) {
   let node: any = el;
@@ -24,7 +24,7 @@ function isWindow(element: any) {
   return element === window;
 }
 
-export const InfiniteScroll: React.FC<{ hasMore: boolean; loadMore: Function; threshold?: number }> = ({
+const InfiniteScroll: React.FC<{ hasMore: boolean; loadMore: () => void; threshold?: number }> = ({
   children,
   hasMore,
   loadMore,
@@ -36,7 +36,7 @@ export const InfiniteScroll: React.FC<{ hasMore: boolean; loadMore: Function; th
 
   const elementRef = useRef<HTMLDivElement>(null);
 
-  const check = usePersistFn(() => {
+  const check = useMemoizedFn(() => {
     if (!hasMore) return;
     const element = elementRef.current;
     if (!element) return;
@@ -72,7 +72,9 @@ export const InfiniteScroll: React.FC<{ hasMore: boolean; loadMore: Function; th
   return (
     <div ref={elementRef}>
       {children}
-      {!children && <>{hasMore ? <span>加载中</span> : <span>没有更多了</span>}</>}
+      {!children && (hasMore ? <span>加载中</span> : <span>没有更多了</span>)}
     </div>
   );
 };
+
+export default InfiniteScroll;

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import { PureComponent } from 'react';
 import styles from './index.less';
 
 /**
@@ -16,6 +16,6 @@ class PageLoading extends PureComponent {
     );
   }
 }
-export const StaticLoading = () => <div style={{ padding: '2%' }}>StaticLoading</div>;
+export const StaticLoading = () => <div style={{ padding: '2%' }}> </div>;
 
 export default PageLoading;

@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Input, Cell, Button, Message, Icon } from 'zarm';
 
-const Me: React.FC<{}> = () => {
+const Me: React.FC = () => {
   const {
     control,
     handleSubmit,
@@ -10,36 +10,9 @@ const Me: React.FC<{}> = () => {
   } = useForm({ mode: 'onBlur' });
 
   const onSubmit = (data: any) => console.log(data);
+  console.log('%c 🚀 xuzh me', 'color: red; font-size: 18px;', 11);
 
-  return (
-    <div style={{ margin: '20px' }}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Cell
-          title="姓名"
-          help={
-            errors.name ? (
-              <Message theme="danger" icon={<Icon type="warning-round" size="sm" />}>
-                {errors.name.message ? errors.name.message : 'name is required'}
-              </Message>
-            ) : (
-              ''
-            )
-          }
-        >
-          <Controller
-            name="name"
-            control={control}
-            defaultValue="123555"
-            rules={{ required: true }}
-            render={({ field }) => <Input placeholder="请输入姓名" {...field} />}
-          />
-        </Cell>
-        <Button htmlType="submit" block>
-          提交
-        </Button>
-      </form>
-    </div>
-  );
+  return <div style={{ width: '100vw', height: '100%', overflow: 'hidden' }}>11</div>;
 };
 
 export default Me;

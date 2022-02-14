@@ -6,9 +6,9 @@ import { useGlobalData } from '@/components/StoreContext';
 import BasicContentLayout from '@/layouts/BasicContentLayout';
 import IconPro from '@/components/IconPro';
 import CircleIcon from '@/components/IconPro/CircleIcon';
-import { InfiniteScroll } from '@/components/InfiniteScroll';
+import InfiniteScroll from '@/components/InfiniteScroll';
 import { juejinList } from '@/services/juejin';
-import styles from './Home.less';
+import styles from './Home.module.less';
 
 const ITEMS = [
   'https://static.zhongan.com/website/health/zarm/images/banners/1.png',
@@ -16,15 +16,12 @@ const ITEMS = [
   'https://static.zhongan.com/website/health/zarm/images/banners/3.png',
 ];
 
-const contentRender = () => {
-  return ITEMS.map((item, i) => {
-    return (
-      <div className={styles.pic} key={+i}>
-        <img src={item} alt="" draggable={false} />
-      </div>
-    );
-  });
-};
+const contentRender = () =>
+  ITEMS.map((item, i) => (
+    <div className={styles.pic} key={+i}>
+      <img src={item} alt="" draggable={false} />
+    </div>
+  ));
 
 const Card: React.FC<{
   user: string;
@@ -35,38 +32,36 @@ const Card: React.FC<{
   comment: number;
   avatar: string;
   title?: string;
-}> = ({ user, time, desc, share, star, comment, avatar, title }) => {
-  return (
-    <div className={styles.card}>
-      <div className={styles.bar}>
-        <div className={styles.avatar}>
-          <img src={avatar} alt="avatar" />
-        </div>
-        <div className={styles.userInfo}>
-          <div className={styles.userName}>{user}</div>
-          <div className={styles.time}>{time}</div>
-        </div>
+}> = ({ user, time, desc, share, star, comment, avatar, title }) => (
+  <div className={styles.card}>
+    <div className={styles.bar}>
+      <div className={styles.avatar}>
+        <img src={avatar} alt="avatar" />
       </div>
-      <div className={styles.title}>{title}</div>
-      <div className={styles.desc}>{desc}</div>
-      <div className={styles.action}>
-        <div className={styles.share}>
-          <IconPro type="icon-fenxiang" />
-          {share}
-        </div>
-        <div className={styles.comment}>
-          <IconPro type="icon-pinglun" />
-          {comment}
-        </div>
-        <div className={styles.star}>
-          <IconPro type="icon-dianzan" />
-          {star}
-        </div>
-        <div className={styles.close}>x</div>
+      <div className={styles.userInfo}>
+        <div className={styles.userName}>{user}</div>
+        <div className={styles.time}>{time}</div>
       </div>
     </div>
-  );
-};
+    <div className={styles.title}>{title}</div>
+    <div className={styles.desc}>{desc}</div>
+    <div className={styles.action}>
+      <div className={styles.share}>
+        <IconPro type="icon-fenxiang" />
+        {share}
+      </div>
+      <div className={styles.comment}>
+        <IconPro type="icon-pinglun" />
+        {comment}
+      </div>
+      <div className={styles.star}>
+        <IconPro type="icon-dianzan" />
+        {star}
+      </div>
+      <div className={styles.close}>x</div>
+    </div>
+  </div>
+);
 
 const Home = () => {
   const [cursor, setCursor] = useState('0');
@@ -75,10 +70,11 @@ const Home = () => {
   const { state, dispatch } = useGlobalData();
   const loadMore = async () => {
     const res: any = await juejinList(cursor);
-    setData(val => [...val, ...(res?.data ?? [])?.filter((v: any) => v.item_type === 2)]);
+    setData(val => [...val, ...(res?.data ?? []).filter((v: any) => v?.item_type === 2)]);
     setCursor(res?.cursor);
     setHasMore(res?.has_more);
   };
+  console.log('%c 🚀 xuzh home', 'color: red; font-size: 18px;', 11);
 
   return (
     <BasicContentLayout>
@@ -115,19 +111,17 @@ const Home = () => {
         </CircleIcon>
       </div>
       <InfiniteScroll hasMore={hasMore} loadMore={loadMore}>
-        {data.map((v: any) => {
-          return (
-            <Card
-              user={v?.item_info?.author_user_info?.user_name}
-              desc={v?.item_info?.article_info?.brief_content}
-              star={v?.item_info?.article_info?.digg_count}
-              comment={v?.item_info?.article_info?.comment_count}
-              share={v?.item_info?.article_info?.collect_count}
-              time={dayjs.unix(v?.item_info?.article_info?.ctime).format('YYYY-MM-DD')}
-              avatar={v?.item_info?.author_user_info?.avatar_large}
-            />
-          );
-        })}
+        {data.map((v: any) => (
+          <Card
+            user={v?.item_info?.author_user_info?.user_name}
+            desc={v?.item_info?.article_info?.brief_content}
+            star={v?.item_info?.article_info?.digg_count}
+            comment={v?.item_info?.article_info?.comment_count}
+            share={v?.item_info?.article_info?.collect_count}
+            time={dayjs.unix(v?.item_info?.article_info?.ctime).format('YYYY-MM-DD')}
+            avatar={v?.item_info?.author_user_info?.avatar_large}
+          />
+        ))}
       </InfiniteScroll>
     </BasicContentLayout>
   );

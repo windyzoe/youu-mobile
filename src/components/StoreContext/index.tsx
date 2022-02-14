@@ -1,13 +1,5 @@
-import React, { useReducer, useContext } from 'react';
+import React, { useReducer, useContext, useMemo } from 'react';
 import StoreContext, { DEFAULT_STATE } from './store';
-
-const StoreRoot: React.FC<{}> = ({ children }) => {
-  const [state, dispatch] = useReducer(RootReducer, DEFAULT_STATE);
-  const store = { state, dispatch };
-  return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>;
-};
-
-export default StoreRoot;
 
 // ------封装一下useContext------
 
@@ -22,7 +14,7 @@ export interface Action {
   payload: any;
 }
 
-//------Reducer--------
+// ------Reducer--------
 const RootReducer = (state: any, action: Action) => {
   switch (action.type) {
     case 'changeData':
@@ -30,4 +22,13 @@ const RootReducer = (state: any, action: Action) => {
     default:
       break;
   }
+  return state;
 };
+
+const StoreRoot: React.FC = ({ children }) => {
+  const [state, dispatch] = useReducer(RootReducer, DEFAULT_STATE);
+  const store = useMemo(() => ({ state, dispatch }), [state]);
+  return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>;
+};
+
+export default StoreRoot;
